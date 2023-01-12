@@ -98,7 +98,38 @@ addSquares(5,3);//Mostrará 34
     ```
     > "La _**inner function**_ esta expuesta y disponible a cualquier ambito"    
 ---
-    
+## **Lexical Environment** ##
+
+>   "El  _**Lexical environment**_ es el **estado circundante** de una funcion.
+    El estado de sus parametros reales y sus variables."
+
+
+Veamos la funcion de suma
+```js
+   function makeAdder(x)
+    {
+        function add(y)
+        {
+            return x+y; //(I)
+        }
+
+        return add;//(II)
+    }
+```
+Podemos verla como una fabrica de funciones de suma.
+Luego:
+
+``` js
+
+    const sumar5=makedAdder(5);
+    const sumar2=makedAdder(2);
+```
+
+>Aunque la funcion creadora es la misma (makeAdder) cada clausura tiene su propio
+Lexical environment, en el de sumar5 x=5 y en el de sumar2 x=2.
+
+
+---   
         
 ## **Usos prácticos** ##
 
@@ -129,27 +160,47 @@ ___
 
 ## **Emulando métodos privados con clausuras** ##
 
-> "Solo los miembros de la clase (no su familia) ni externos pueden acceder" **POO**
-
-```js
-//Un constructor de objerto
-function Perro(edad,nombre,ladrido)
-    {
-            this.edad=edad;
-            this.nombre=nombre;
-            this.ladrido=ladrido;
-
-            this.ladrar=()=>
-            {
-                console.log(this.ladrido);
-            };
-
-            this.tumbarse=()=>
-            {
-                console.log("se tumba");
-            };
-    }
+> "Solo los miembros de la clase (no su familia) ni externos pueden acceder" **POO*
 
 
+```js 
+const counter = (function () {
 
+  let privateCounter = 0;
 
+  function changeBy(val)
+  {
+    privateCounter += val;
+  }
+
+  return {
+    increment() {
+      changeBy(1);
+    },
+
+    decrement() {
+      changeBy(-1);
+    },
+
+    value() {
+      return privateCounter;
+    },
+  };
+})();
+
+console.log(counter.value()); // 0.
+
+counter.increment();
+counter.increment();
+console.log(counter.value()); // 2.
+
+counter.decrement();
+console.log(counter.value()); // 1.
+
+```
+**Notar que**:
+
+*   Se devuelve un objeto con 3 metodos
+*   Son estos metodos los que acceden a lo privado:atributo (privateCounter) y metodo (changeby())
+
+*   Estas 3 funciones publicas son clausuras que **comparten** el mismo lexical environment
