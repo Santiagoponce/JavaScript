@@ -28,7 +28,7 @@ function addSquares(x,y)
 addSquares(5,3);//Mostrará 34
 ```
 ---
-## **Closures** ##
+## **[Closures](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures)** ##
 
 > "Una **Clausura** (_closure_) se forma cuando de alguna manera se **_expone_** y 
 **_disponibiliza_** a la funcion interna a cualquier ámbito"
@@ -59,7 +59,51 @@ addSquares(5,3);//Mostrará 34
 ```
 * En (III) sumar5 es _inside_ con el valor de x en 5
 
-* **Importante**: Las variables y argumentos de la funcion externa le pueden sobrevivir a su ciclo de vida ya que pueden ser utilizadas por la funcion interna, ahora disponibilizada a cualquier ámbito
+* **Importante**: Las variables y argumentos de la funcion externa **le pueden sobrevivir** a su ciclo de vida ya que pueden ser utilizadas por la funcion interna, ahora disponibilizada a cualquier ámbito
+
+---
+
+## **Clasurua y no clausura** ##
+
+**Aunque el resultado es el mismo**
+
+* **Esto es un anidamiento no una clausura**
+    ``` js
+    function init() {
+    var name = 'Mozilla'; 
+    function displayName() {
+        
+        console.log(name);
+    }
+    displayName();
+    }
+    init();
+    ```
+    > "La _**inner function**_ es exclusiva de la _**outer function**_
+        , solo ella la llama"
+
+* **Esto si una clausura**
+
+    ```js
+    function makeFunc() {
+    const name = 'Mozilla';
+    function displayName() {
+        console.log(name);
+    }
+    return displayName;
+    }
+
+    const myFunc = makeFunc();
+    myFunc();
+    ```
+    > "La _**inner function**_ esta expuesta y disponible a cualquier ambito"
+    ---
+    
+        
+
+
+
+
 
 
 
