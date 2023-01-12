@@ -96,13 +96,59 @@ addSquares(5,3);//Mostrará 34
     const myFunc = makeFunc();
     myFunc();
     ```
-    > "La _**inner function**_ esta expuesta y disponible a cualquier ambito"
-    ---
+    > "La _**inner function**_ esta expuesta y disponible a cualquier ambito"    
+---
     
         
+## **Usos prácticos** ##
+
+>"Las clausuras son utiles porque nos permiten vincular datos con la funcion que
+opera con esos datos. Esto va en consonancia con la **POO**. En consecuencia: podemos usar closures si necesitamos un objeto que solo tenga un metodo"
+
+### **Un ejemplo pavo:** ###
+
+```js
+function Dog(name)
+{
+    function ladrar()
+    {
+        console.log(name +" "+"dice:Guau Guau!");
+    }
+
+    return ladrar;
+}
+
+var perro=Dog("Quebracho");
+perro();// console output--> Quebracho dice: Guau Guau!
+```
 
 
 
+
+___
+
+## **Emulando métodos privados con clausuras** ##
+
+> "Solo los miembros de la clase (no su familia) ni externos pueden acceder" **POO**
+
+```js
+//Un constructor de objerto
+function Perro(edad,nombre,ladrido)
+    {
+            this.edad=edad;
+            this.nombre=nombre;
+            this.ladrido=ladrido;
+
+            this.ladrar=()=>
+            {
+                console.log(this.ladrido);
+            };
+
+            this.tumbarse=()=>
+            {
+                console.log("se tumba");
+            };
+    }
 
 
 
