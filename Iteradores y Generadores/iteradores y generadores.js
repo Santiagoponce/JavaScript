@@ -1,0 +1,29 @@
+function makeRangeIterator(start = 0, end = Infinity, step = 1) {
+    let nextIndex = start;
+    let iterationCount = 0;
+  
+    const rangeIterator = {
+      next() {
+        let result;
+        if (nextIndex < end) {
+          result = { value: nextIndex, done: false };
+          nextIndex += step;
+          iterationCount++;
+          return result;
+        }
+        return { value: iterationCount, done: true };
+      }
+    };
+    return rangeIterator;
+  }
+
+
+var iterator=makeRangeIterator(0,100,2);
+
+
+let value=iterator.next();;
+while(value.done!=true)
+{
+console.log(value.value);
+value=iterator.next();
+}
